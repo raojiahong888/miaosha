@@ -12,7 +12,7 @@ $TEMPLATE['type'] = 'goods';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
-$goods_model = new \model\goods();
+$goods_model = new \model\Goods();
 if ('list' == $action) {	// 列表页
 	$page = getReqInt('page', 'get', 1);
 	$size = 50;
