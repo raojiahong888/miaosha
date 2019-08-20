@@ -41,7 +41,10 @@ if (!$active_id || !$goods_id
 }
 // 3.1 验证活动状态信息
 $status_check = false;
-$str_sign_data = unsignQuestion($sign_data);
+//$str_sign_data = unsignQuestion($sign_data);
+$sign_data = explode(',', $sign_data);
+$openssl = new \common\OpensslClass($sign_data[1], $sign_data[2]);
+$str_sign_data = $openssl->unsignQuestion($sign_data[0]);
 $sign_data_info = json_decode($str_sign_data, true);
 // 时间不能超过当前时间5分钟，IP和用户保持不变
 if ($sign_data_info
@@ -58,7 +61,10 @@ if (!$status_check) {
 }
 // 3.2 验证问答信息是否正确
 $question_check = false;
-$str_question = unsignQuestion($question_sign);
+//$str_question = unsignQuestion($question_sign);
+$question_sign = explode(',', $question_sign);
+$openssl = new \common\OpensslClass($question_sign[1], $question_sign[2]);
+$str_question = $openssl->unsignQuestion($question_sign[0]);
 $question_info = json_decode(trim($str_question), true);
 if ($str_question && $question_info) {
     if ($question_info['ask'] == $ask

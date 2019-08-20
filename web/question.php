@@ -59,7 +59,9 @@ $question_info = array('aid' => $aid, 'id' => $question_info['id'],
     'uid' => $uid, 'ip' => $ip, 'now' => time()
 );
 
-$sign = signQuestion($question_info);
+//$sign = signQuestion($question_info);
+$openssl = new \common\OpensslClass();
+$sign = $openssl->signQuestion($question_info);
 
 $result = array('sign' => $sign,
     'ask' => $ask, 'datalist' => $datalist_answer, 'title' => $question_info['title'],

@@ -42,7 +42,9 @@ if ($data && $data[0] && $data[1]) {
         'ip' => getClientIp(),
         'uid' => $login_userinfo['uid'],
     );
-    $str = signQuestion($info);
+    $openssl = new \common\OpensslClass();
+    $str = $openssl->signQuestion($info);
+//    $str = signQuestion($info);
     echo json_encode(array('user_sign' => $str));
 } else {
     $result = array('error_no' => '202', 'error_msg' => '活动商品已下架或者已售完');
