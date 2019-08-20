@@ -12,7 +12,7 @@ $TEMPLATE['type'] = 'log';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
-$log_model = new \model\log();
+$log_model = new \model\Log();
 if ('list' == $action) {	// 列表页
 	$page = getReqInt('page', 'get', 1);
 	$size = 50;
