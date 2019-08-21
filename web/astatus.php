@@ -17,7 +17,7 @@
  * 文件如果存在，则nginx直接返回静态文件的内容
  * 如果不存在，则把参数赋值给动态接口 /astatus.php?aid=1&gid=2
  *
- * User: wangyi
+ * User: rjh
  */
 
 include './init.php';
