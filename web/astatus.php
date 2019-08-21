@@ -18,6 +18,7 @@
  * 如果不存在，则把参数赋值给动态接口 /astatus.php?aid=1&gid=2
  *
  * User: rjh
+ *
  */
 
 include './init.php';
