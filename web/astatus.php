@@ -13,7 +13,7 @@
  * }
  *
  * $1代表第一个括号处，$2代表第二个括号处，$3代表第三个括号处
- * 例如： /astatus/1_2.js
+ * 例如，请求地址为： http://miaosha.raohonghong.com/astatus/1_2.js
  * 文件如果存在，则nginx直接返回静态文件的内容
  * 如果不存在，则把参数赋值给动态接口 /astatus.php?aid=1&gid=2
  *
