@@ -112,7 +112,7 @@ if ($data_list[0]) {
     show_result($result);
 }
 // 5 验证活动信息，商品信息是否正常
-if ($data_list[1]) {
+if ($data_list[1] != 1) {
     $result = array('error_no' => '105', 'error_msg' => '活动信息异常');
     show_result($result);
 }

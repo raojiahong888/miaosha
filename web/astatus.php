@@ -37,7 +37,7 @@ $data = $redis_obj->mget(array(
     'st_a_' . $aid,
     'st_g_' . $gid,
 ));
-if ($data && $data[0] && $data[1]) {
+if ($data && $data[0] == 1 && $data[1] == 1) {
     // 活动状态和商品状态都是正常状态，才可以返回一个正确的验证码
     $info = array(
         'now' => time(),

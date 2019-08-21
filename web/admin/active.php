@@ -13,6 +13,7 @@ $TEMPLATE['type'] = 'active';
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
 $active_model = new \model\Active();
+$redis_obj = \common\Datasource::getRedis('instance1');
 if ('list' == $action) {	// 列表页
 	$page = getReqInt('page', 'get', 1);
 	$size = 50;
@@ -68,6 +69,7 @@ if ('list' == $action) {	// 列表页
         $ok = $active_model->save($data);
 	}
 	if ($ok) {
+        $redis_obj->set('st_a_'.$id, 2);
 		redirect($refer);
 	} else {
 		echo '<script>alert("下线的时候出现错误");location.href="'.$refer.'";</script>';
@@ -81,6 +83,7 @@ if ('list' == $action) {	// 列表页
 		$ok = $active_model->save($data);
 	}
 	if ($ok) {
+        $redis_obj->set('st_a_'.$id, 1);
 		redirect($refer);
 	} else {
 		echo '<script>alert("上线的时候出现错误");location.href="'.$refer.'";</script>';

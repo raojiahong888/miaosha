@@ -13,6 +13,7 @@ $TEMPLATE['type'] = 'goods';
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
 $goods_model = new \model\Goods();
+$redis_obj = \common\Datasource::getRedis('instance1');
 if ('list' == $action) {	// 列表页
 	$page = getReqInt('page', 'get', 1);
 	$size = 50;
@@ -56,10 +57,12 @@ if ('list' == $action) {	// 列表页
     if ($info['id']) {
         $goods_model->sys_lastmodify = time();
         $ok = $goods_model->save();
+        $goods_id = $info['id'];
     } else {
         $goods_model->sys_dateline = $goods_model->sys_lastmodify = time();
         $goods_model->sys_ip = getClientIp();
         $ok = $goods_model->create();
+        $goods_id = $ok;
     }
 
 	if ($ok) {
@@ -75,6 +78,7 @@ if ('list' == $action) {	// 列表页
         $ok = $goods_model->save($data);
 	}
 	if ($ok) {
+        $redis_obj->set('st_g_'.$id, 2);
 		redirect($refer);
 	} else {
 		echo '<script>alert("下线的时候出现错误");location.href="'.$refer.'";</script>';
@@ -87,6 +91,7 @@ if ('list' == $action) {	// 列表页
 		$ok = $goods_model->save($data);
 	}
 	if ($ok) {
+        $redis_obj->set('st_g_'.$id, 1);
 		redirect($refer);
 	} else {
 		echo '<script>alert("上线的时候出现错误");location.href="'.$refer.'";</script>';
