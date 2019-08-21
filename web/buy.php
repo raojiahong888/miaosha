@@ -146,6 +146,7 @@ if ('buy_cart' != $action) {
 $num_total = $price_total = $price_discount = 0;
 $trade_goods = array();
 foreach ($data_list as $i => $goods_info) {
+    $goods_info = json_decode($goods_info,true);
     $goods_num = $nums[$i - 2];
 //    $goods_info = $goods_model->get($goods_id);
     if (!$goods_info || $goods_info['sys_status'] !== '1') {

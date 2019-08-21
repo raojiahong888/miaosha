@@ -66,6 +66,15 @@ if ('list' == $action) {	// 列表页
     }
 
 	if ($ok) {
+	    $goods_data = [
+	        'id' => $goods_id,
+            'sys_status' => 0,
+            'num_user' => $info['num_user'],
+            'num_left' => $info['num_left'],
+            'price_normal' => $info['price_normal'],
+            'price_discount' => $info['price_discount'],
+        ];
+	    $redis_obj->set('info_g_'.$goods_id, json_encode($goods_data));
 		redirect('goods.php');
 	} else {
 		echo '<script>alert("数据保存失败");history.go(-1);</script>';
@@ -79,6 +88,9 @@ if ('list' == $action) {	// 列表页
 	}
 	if ($ok) {
         $redis_obj->set('st_g_'.$id, 2);
+        $goods_data = json_decode($redis_obj->get('info_g_'.$id), true);
+        $goods_data['sys_status'] = 2;
+        $redis_obj->set('info_g_'.$id, json_encode($goods_data));
 		redirect($refer);
 	} else {
 		echo '<script>alert("下线的时候出现错误");location.href="'.$refer.'";</script>';
@@ -92,6 +104,9 @@ if ('list' == $action) {	// 列表页
 	}
 	if ($ok) {
         $redis_obj->set('st_g_'.$id, 1);
+        $goods_data = json_decode($redis_obj->get('info_g_'.$id), true);
+        $goods_data['sys_status'] = 1;
+        $redis_obj->set('info_g_'.$id, json_encode($goods_data));
 		redirect($refer);
 	} else {
 		echo '<script>alert("上线的时候出现错误");location.href="'.$refer.'";</script>';
